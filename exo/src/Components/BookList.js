@@ -1,8 +1,8 @@
+// src/components/BookList.js
 import React from 'react';
-import books from '../books.json';
 import BookItem from './BookItem';
 
-const BookList = () => {
+const BookList = ({ books }) => {
   return (
     <div className="book-list">
       {books.map((book, index) => (
