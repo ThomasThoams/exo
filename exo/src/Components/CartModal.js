@@ -5,7 +5,7 @@ import { CartContext } from '../Context/CartContext.js';
 import CloseIcon from '@mui/icons-material/Close';
 
 const CartModal = ({ open, handleClose }) => {
-  const { cart, removeFromCart } = useContext(CartContext);
+  const { cart, removeFromCart, clearCart } = useContext(CartContext);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -17,19 +17,24 @@ const CartModal = ({ open, handleClose }) => {
           </IconButton>
         </Box>
         {cart.length > 0 ? (
-          cart.map((book) => (
-            <Box key={book.isbn} sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography>{book.name}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {book.authors.join(', ')}
-                </Typography>
+          <>
+            {cart.map((book) => (
+              <Box key={book.isbn} sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <Typography>{book.name}</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {book.authors.join(', ')}
+                  </Typography>
+                </Box>
+                <Button variant="outlined" color="secondary" onClick={() => removeFromCart(book.isbn)}>
+                  Retirer
+                </Button>
               </Box>
-              <Button variant="outlined" color="secondary" onClick={() => removeFromCart(book.isbn)}>
-                Retirer
-              </Button>
-            </Box>
-          ))
+            ))}
+            <Button variant="contained" color="primary" onClick={clearCart}>
+              Vider le panier
+            </Button>
+          </>
         ) : (
           <Typography variant="body1">Votre panier est vide.</Typography>
         )}

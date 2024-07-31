@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Page/Home.js';
 import BookDetail from './Page/BookDetail.js';
-import { CartProvider } from './Context/CartContext.js';
+import CartProvider from './Context/CartContext.js';
+import CartModal from './Components/CartModal.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import CartModal from './Components/CartModal.js';
 import './App.css';
 
 const App = () => {
