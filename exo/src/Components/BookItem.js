@@ -1,23 +1,25 @@
 // src/components/BookItem.js
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { getCoverImageUrl } from '../utils';
+import BookModal from './BookModal';
 
 const BookItem = ({ book }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/books/${book.name}`);
-  };
+  const [open, setOpen] = useState(false);
+  
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const coverImageUrl = getCoverImageUrl(book.isbn);
 
   return (
-    <div className="book-item" onClick={handleClick}>
-      <img src={coverImageUrl} alt={`${book.name} cover`} />
-      <h2>{book.name}</h2>
-      <p>Author: {book.authors.join(', ')}</p>
-      <p>Released: {new Date(book.released).toDateString()}</p>
+    <div>
+      <div className="book-item" onClick={handleOpen}>
+        <img src={coverImageUrl} alt={`${book.name} cover`} />
+        <h2>{book.name}</h2>
+        <p>Author: {book.authors.join(', ')}</p>
+        <p>Released: {new Date(book.released).toDateString()}</p>
+      </div>
+      <BookModal book={book} open={open} handleClose={handleClose} />
     </div>
   );
 };
